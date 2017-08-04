@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate{
 
 	canActivate(path) {
 		var route = path.url[0].path;
-		if(this.authService.loggedIn() && route == 'profile' || this.authService.loggedIn() && route == 'dashboard') {
+		if(this.authService.loggedIn() && route == 'profile' || this.authService.loggedIn() && route == 'dashboard' || this.authService.loggedIn() && route == 'chat') {
 			return true;
 		} else if(!this.authService.loggedIn() && route == 'login' || !this.authService.loggedIn() && route == 'register') {
 			return true;

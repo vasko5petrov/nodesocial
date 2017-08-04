@@ -16,8 +16,10 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
+import { ChatService } from './services/chat.service';
 
 import { AuthGuard } from './guards/auth.guard';
+import { ChatComponent } from './components/chat/chat.component';
 
 const appRoutes: Routes = [
 	{path: '', component: HomeComponent},
@@ -25,6 +27,7 @@ const appRoutes: Routes = [
 	{path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
 	{path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
 	{path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
 	{path: '*', redirectTo: ''}
 ];
 
@@ -36,7 +39,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     LoginComponent,
     ProfileComponent,
-    RegisterComponent
+    RegisterComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule
   ],
-  providers: [ValidateService, AuthService, AuthGuard],
+  providers: [ValidateService, AuthService, ChatService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

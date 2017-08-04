@@ -14,8 +14,10 @@
     "cors": "^2.8.4",
     "express": "^4.15.3",
     "jsonwebtoken": "^7.4.1",
+    "mongodb": "^2.2.30",
     "mongoose": "^4.11.5",
     "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1"
+    "passport-jwt": "^2.2.1",
+    "socket.io": "^2.0.3"
   }
 }
