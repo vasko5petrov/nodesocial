@@ -881,7 +881,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var ChatService = (function () {
     function ChatService() {
-        this.url = 'http://localhost:5000';
+        this.url = 'http://localhost:8080';
     }
     ChatService.prototype.sendMessage = function (messageData) {
         this.socket.emit('add-message', messageData);
