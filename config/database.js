@@ -1,4 +1,4 @@
 module.exports = {
-	database: 'mongodb://localhost:27017/nodesocial',
+	database: 'mongodb://vaskop:1q2w3e4r@ds129043.mlab.com:29043/meansocialapp',
 	secret: 'secret'
 }
