@@ -17,9 +17,10 @@ const user = require('./routes/users');
 MongoClient.connect(config.database, (err, database) => {
     if (err) return console.log(err)
     db = database
-	app.listen(5000, (err) => {
+	let appPort = process.env.PORT || 8080;
+	app.listen(appPort, (err) => {
 		if(err) throw err;
-		console.log('mongodb listenning on port '+5000);
+		console.log('mongodb listenning on port '+appPort);
 	});
 
 	function databaseStore(messageData) {
@@ -94,7 +95,7 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 
 http.listen(port, (err) => {
 	if(err) throw err;
