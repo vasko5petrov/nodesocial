@@ -909,6 +909,176 @@ module.exports = function(obj, fn){
 
 /***/ }),
 
+/***/ "../../../../component-emitter/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * Expose `Emitter`.
+ */
+
+if (true) {
+  module.exports = Emitter;
+}
+
+/**
+ * Initialize a new `Emitter`.
+ *
+ * @api public
+ */
+
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+};
+
+/**
+ * Mixin the emitter properties.
+ *
+ * @param {Object} obj
+ * @return {Object}
+ * @api private
+ */
+
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+/**
+ * Listen on the given `event` with `fn`.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+    .push(fn);
+  return this;
+};
+
+/**
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.once = function(event, fn){
+  function on() {
+    this.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  on.fn = fn;
+  this.on(event, on);
+  return this;
+};
+
+/**
+ * Remove the given callback for `event` or all
+ * registered callbacks.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks['$' + event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks['$' + event];
+    return this;
+  }
+
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+  var args = [].slice.call(arguments, 1)
+    , callbacks = this._callbacks['$' + event];
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks['$' + event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
+ * @return {Boolean}
+ * @api public
+ */
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
+
+
+/***/ }),
+
 /***/ "../../../../component-inherit/index.js":
 /***/ (function(module, exports) {
 
@@ -1428,7 +1598,7 @@ module.exports = __webpack_require__("../../../../engine.io-client/lib/socket.js
  * @api public
  *
  */
-module.exports.parser = __webpack_require__("../../../../engine.io-client/node_modules/engine.io-parser/lib/browser.js");
+module.exports.parser = __webpack_require__("../../../../engine.io-parser/lib/browser.js");
 
 
 /***/ }),
@@ -1441,10 +1611,10 @@ module.exports.parser = __webpack_require__("../../../../engine.io-client/node_m
  */
 
 var transports = __webpack_require__("../../../../engine.io-client/lib/transports/index.js");
-var Emitter = __webpack_require__("../../../../engine.io-client/node_modules/component-emitter/index.js");
+var Emitter = __webpack_require__("../../../../component-emitter/index.js");
 var debug = __webpack_require__("../../../../debug/src/browser.js")('engine.io-client:socket');
 var index = __webpack_require__("../../../../indexof/index.js");
-var parser = __webpack_require__("../../../../engine.io-client/node_modules/engine.io-parser/lib/browser.js");
+var parser = __webpack_require__("../../../../engine.io-parser/lib/browser.js");
 var parseuri = __webpack_require__("../../../../parseuri/index.js");
 var parsejson = __webpack_require__("../../../../parsejson/index.js");
 var parseqs = __webpack_require__("../../../../parseqs/index.js");
@@ -1582,7 +1752,7 @@ Socket.protocol = parser.protocol; // this is an int
 Socket.Socket = Socket;
 Socket.Transport = __webpack_require__("../../../../engine.io-client/lib/transport.js");
 Socket.transports = __webpack_require__("../../../../engine.io-client/lib/transports/index.js");
-Socket.parser = __webpack_require__("../../../../engine.io-client/node_modules/engine.io-parser/lib/browser.js");
+Socket.parser = __webpack_require__("../../../../engine.io-parser/lib/browser.js");
 
 /**
  * Creates transport of the given type.
@@ -2192,8 +2362,8 @@ Socket.prototype.filterUpgrades = function (upgrades) {
  * Module dependencies.
  */
 
-var parser = __webpack_require__("../../../../engine.io-client/node_modules/engine.io-parser/lib/browser.js");
-var Emitter = __webpack_require__("../../../../engine.io-client/node_modules/component-emitter/index.js");
+var parser = __webpack_require__("../../../../engine.io-parser/lib/browser.js");
+var Emitter = __webpack_require__("../../../../component-emitter/index.js");
 
 /**
  * Module exports.
@@ -2658,7 +2828,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 
 var XMLHttpRequest = __webpack_require__("../../../../engine.io-client/lib/xmlhttprequest.js");
 var Polling = __webpack_require__("../../../../engine.io-client/lib/transports/polling.js");
-var Emitter = __webpack_require__("../../../../engine.io-client/node_modules/component-emitter/index.js");
+var Emitter = __webpack_require__("../../../../component-emitter/index.js");
 var inherit = __webpack_require__("../../../../component-inherit/index.js");
 var debug = __webpack_require__("../../../../debug/src/browser.js")('engine.io-client:polling-xhr');
 
@@ -3079,7 +3249,7 @@ function unloadHandler () {
 
 var Transport = __webpack_require__("../../../../engine.io-client/lib/transport.js");
 var parseqs = __webpack_require__("../../../../parseqs/index.js");
-var parser = __webpack_require__("../../../../engine.io-client/node_modules/engine.io-parser/lib/browser.js");
+var parser = __webpack_require__("../../../../engine.io-parser/lib/browser.js");
 var inherit = __webpack_require__("../../../../component-inherit/index.js");
 var yeast = __webpack_require__("../../../../yeast/index.js");
 var debug = __webpack_require__("../../../../debug/src/browser.js")('engine.io-client:polling');
@@ -3330,7 +3500,7 @@ Polling.prototype.uri = function () {
  */
 
 var Transport = __webpack_require__("../../../../engine.io-client/lib/transport.js");
-var parser = __webpack_require__("../../../../engine.io-client/node_modules/engine.io-parser/lib/browser.js");
+var parser = __webpack_require__("../../../../engine.io-parser/lib/browser.js");
 var parseqs = __webpack_require__("../../../../parseqs/index.js");
 var inherit = __webpack_require__("../../../../component-inherit/index.js");
 var yeast = __webpack_require__("../../../../yeast/index.js");
@@ -3661,188 +3831,18 @@ module.exports = function (opts) {
 
 /***/ }),
 
-/***/ "../../../../engine.io-client/node_modules/component-emitter/index.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * Expose `Emitter`.
- */
-
-if (true) {
-  module.exports = Emitter;
-}
-
-/**
- * Initialize a new `Emitter`.
- *
- * @api public
- */
-
-function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
-
-/**
- * Mixin the emitter properties.
- *
- * @param {Object} obj
- * @return {Object}
- * @api private
- */
-
-function mixin(obj) {
-  for (var key in Emitter.prototype) {
-    obj[key] = Emitter.prototype[key];
-  }
-  return obj;
-}
-
-/**
- * Listen on the given `event` with `fn`.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
-    .push(fn);
-  return this;
-};
-
-/**
- * Adds an `event` listener that will be invoked a single
- * time then automatically removed.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.once = function(event, fn){
-  function on() {
-    this.off(event, on);
-    fn.apply(this, arguments);
-  }
-
-  on.fn = fn;
-  this.on(event, on);
-  return this;
-};
-
-/**
- * Remove the given callback for `event` or all
- * registered callbacks.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.off =
-Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-
-  // all
-  if (0 == arguments.length) {
-    this._callbacks = {};
-    return this;
-  }
-
-  // specific event
-  var callbacks = this._callbacks['$' + event];
-  if (!callbacks) return this;
-
-  // remove all handlers
-  if (1 == arguments.length) {
-    delete this._callbacks['$' + event];
-    return this;
-  }
-
-  // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
-    }
-  }
-  return this;
-};
-
-/**
- * Emit `event` with the given args.
- *
- * @param {String} event
- * @param {Mixed} ...
- * @return {Emitter}
- */
-
-Emitter.prototype.emit = function(event){
-  this._callbacks = this._callbacks || {};
-  var args = [].slice.call(arguments, 1)
-    , callbacks = this._callbacks['$' + event];
-
-  if (callbacks) {
-    callbacks = callbacks.slice(0);
-    for (var i = 0, len = callbacks.length; i < len; ++i) {
-      callbacks[i].apply(this, args);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return array of callbacks for `event`.
- *
- * @param {String} event
- * @return {Array}
- * @api public
- */
-
-Emitter.prototype.listeners = function(event){
-  this._callbacks = this._callbacks || {};
-  return this._callbacks['$' + event] || [];
-};
-
-/**
- * Check if this emitter has `event` handlers.
- *
- * @param {String} event
- * @return {Boolean}
- * @api public
- */
-
-Emitter.prototype.hasListeners = function(event){
-  return !! this.listeners(event).length;
-};
-
-
-/***/ }),
-
-/***/ "../../../../engine.io-client/node_modules/engine.io-parser/lib/browser.js":
+/***/ "../../../../engine.io-parser/lib/browser.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module dependencies.
  */
 
-var keys = __webpack_require__("../../../../engine.io-client/node_modules/engine.io-parser/lib/keys.js");
+var keys = __webpack_require__("../../../../engine.io-parser/lib/keys.js");
 var hasBinary = __webpack_require__("../../../../has-binary2/index.js");
 var sliceBuffer = __webpack_require__("../../../../arraybuffer.slice/index.js");
 var after = __webpack_require__("../../../../after/index.js");
-var utf8 = __webpack_require__("../../../../engine.io-client/node_modules/engine.io-parser/lib/utf8.js");
+var utf8 = __webpack_require__("../../../../engine.io-parser/lib/utf8.js");
 
 var base64encoder;
 if (global && global.ArrayBuffer) {
@@ -4445,7 +4445,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
 
 /***/ }),
 
-/***/ "../../../../engine.io-client/node_modules/engine.io-parser/lib/keys.js":
+/***/ "../../../../engine.io-parser/lib/keys.js":
 /***/ (function(module, exports) {
 
 
@@ -4471,7 +4471,7 @@ module.exports = Object.keys || function keys (obj){
 
 /***/ }),
 
-/***/ "../../../../engine.io-client/node_modules/engine.io-parser/lib/utf8.js":
+/***/ "../../../../engine.io-parser/lib/utf8.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
@@ -4742,7 +4742,7 @@ module.exports = Object.keys || function keys (obj){
  * Module requirements.
  */
 
-var isArray = __webpack_require__("../../../../has-binary2/node_modules/isarray/index.js");
+var isArray = __webpack_require__("../../../../isarray/index.js");
 
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
@@ -4803,18 +4803,6 @@ function hasBinary (obj) {
 
 /***/ }),
 
-/***/ "../../../../has-binary2/node_modules/isarray/index.js":
-/***/ (function(module, exports) {
-
-var toString = {}.toString;
-
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
-
-
-/***/ }),
-
 /***/ "../../../../has-cors/index.js":
 /***/ (function(module, exports) {
 
@@ -4852,6 +4840,18 @@ module.exports = function(arr, obj){
   }
   return -1;
 };
+
+/***/ }),
+
+/***/ "../../../../isarray/index.js":
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
 
 /***/ }),
 
@@ -9946,7 +9946,7 @@ exports.tryCatch = tryCatch;
  */
 
 var url = __webpack_require__("../../../../socket.io-client/lib/url.js");
-var parser = __webpack_require__("../../../../socket.io-client/node_modules/socket.io-parser/index.js");
+var parser = __webpack_require__("../../../../socket.io-parser/index.js");
 var Manager = __webpack_require__("../../../../socket.io-client/lib/manager.js");
 var debug = __webpack_require__("../../../../debug/src/browser.js")('socket.io-client');
 
@@ -10048,8 +10048,8 @@ exports.Socket = __webpack_require__("../../../../socket.io-client/lib/socket.js
 
 var eio = __webpack_require__("../../../../engine.io-client/index.js");
 var Socket = __webpack_require__("../../../../socket.io-client/lib/socket.js");
-var Emitter = __webpack_require__("../../../../socket.io-client/node_modules/component-emitter/index.js");
-var parser = __webpack_require__("../../../../socket.io-client/node_modules/socket.io-parser/index.js");
+var Emitter = __webpack_require__("../../../../component-emitter/index.js");
+var parser = __webpack_require__("../../../../socket.io-parser/index.js");
 var on = __webpack_require__("../../../../socket.io-client/lib/on.js");
 var bind = __webpack_require__("../../../../component-bind/index.js");
 var debug = __webpack_require__("../../../../debug/src/browser.js")('socket.io-client:manager');
@@ -10657,8 +10657,8 @@ function on (obj, ev, fn) {
  * Module dependencies.
  */
 
-var parser = __webpack_require__("../../../../socket.io-client/node_modules/socket.io-parser/index.js");
-var Emitter = __webpack_require__("../../../../socket.io-client/node_modules/component-emitter/index.js");
+var parser = __webpack_require__("../../../../socket.io-parser/index.js");
+var Emitter = __webpack_require__("../../../../component-emitter/index.js");
 var toArray = __webpack_require__("../../../../to-array/index.js");
 var on = __webpack_require__("../../../../socket.io-client/lib/on.js");
 var bind = __webpack_require__("../../../../component-bind/index.js");
@@ -11157,189 +11157,7 @@ function url (uri, loc) {
 
 /***/ }),
 
-/***/ "../../../../socket.io-client/node_modules/component-emitter/index.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * Expose `Emitter`.
- */
-
-if (true) {
-  module.exports = Emitter;
-}
-
-/**
- * Initialize a new `Emitter`.
- *
- * @api public
- */
-
-function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
-
-/**
- * Mixin the emitter properties.
- *
- * @param {Object} obj
- * @return {Object}
- * @api private
- */
-
-function mixin(obj) {
-  for (var key in Emitter.prototype) {
-    obj[key] = Emitter.prototype[key];
-  }
-  return obj;
-}
-
-/**
- * Listen on the given `event` with `fn`.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
-    .push(fn);
-  return this;
-};
-
-/**
- * Adds an `event` listener that will be invoked a single
- * time then automatically removed.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.once = function(event, fn){
-  function on() {
-    this.off(event, on);
-    fn.apply(this, arguments);
-  }
-
-  on.fn = fn;
-  this.on(event, on);
-  return this;
-};
-
-/**
- * Remove the given callback for `event` or all
- * registered callbacks.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.off =
-Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-
-  // all
-  if (0 == arguments.length) {
-    this._callbacks = {};
-    return this;
-  }
-
-  // specific event
-  var callbacks = this._callbacks['$' + event];
-  if (!callbacks) return this;
-
-  // remove all handlers
-  if (1 == arguments.length) {
-    delete this._callbacks['$' + event];
-    return this;
-  }
-
-  // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
-    }
-  }
-  return this;
-};
-
-/**
- * Emit `event` with the given args.
- *
- * @param {String} event
- * @param {Mixed} ...
- * @return {Emitter}
- */
-
-Emitter.prototype.emit = function(event){
-  this._callbacks = this._callbacks || {};
-  var args = [].slice.call(arguments, 1)
-    , callbacks = this._callbacks['$' + event];
-
-  if (callbacks) {
-    callbacks = callbacks.slice(0);
-    for (var i = 0, len = callbacks.length; i < len; ++i) {
-      callbacks[i].apply(this, args);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return array of callbacks for `event`.
- *
- * @param {String} event
- * @return {Array}
- * @api public
- */
-
-Emitter.prototype.listeners = function(event){
-  this._callbacks = this._callbacks || {};
-  return this._callbacks['$' + event] || [];
-};
-
-/**
- * Check if this emitter has `event` handlers.
- *
- * @param {String} event
- * @return {Boolean}
- * @api public
- */
-
-Emitter.prototype.hasListeners = function(event){
-  return !! this.listeners(event).length;
-};
-
-
-/***/ }),
-
-/***/ "../../../../socket.io-client/node_modules/isarray/index.js":
-/***/ (function(module, exports) {
-
-var toString = {}.toString;
-
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
-
-
-/***/ }),
-
-/***/ "../../../../socket.io-client/node_modules/socket.io-parser/binary.js":
+/***/ "../../../../socket.io-parser/binary.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -11348,8 +11166,8 @@ module.exports = Array.isArray || function (arr) {
  * Module requirements
  */
 
-var isArray = __webpack_require__("../../../../socket.io-client/node_modules/isarray/index.js");
-var isBuf = __webpack_require__("../../../../socket.io-client/node_modules/socket.io-parser/is-buffer.js");
+var isArray = __webpack_require__("../../../../isarray/index.js");
+var isBuf = __webpack_require__("../../../../socket.io-parser/is-buffer.js");
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
 var withNativeFile = typeof global.File === 'function' || toString.call(global.File) === '[object FileConstructor]';
@@ -11488,7 +11306,7 @@ exports.removeBlobs = function(data, callback) {
 
 /***/ }),
 
-/***/ "../../../../socket.io-client/node_modules/socket.io-parser/index.js":
+/***/ "../../../../socket.io-parser/index.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -11497,10 +11315,10 @@ exports.removeBlobs = function(data, callback) {
  */
 
 var debug = __webpack_require__("../../../../debug/src/browser.js")('socket.io-parser');
-var Emitter = __webpack_require__("../../../../socket.io-client/node_modules/component-emitter/index.js");
+var Emitter = __webpack_require__("../../../../component-emitter/index.js");
 var hasBin = __webpack_require__("../../../../has-binary2/index.js");
-var binary = __webpack_require__("../../../../socket.io-client/node_modules/socket.io-parser/binary.js");
-var isBuf = __webpack_require__("../../../../socket.io-client/node_modules/socket.io-parser/is-buffer.js");
+var binary = __webpack_require__("../../../../socket.io-parser/binary.js");
+var isBuf = __webpack_require__("../../../../socket.io-parser/is-buffer.js");
 
 /**
  * Protocol version.
@@ -11895,7 +11713,7 @@ function error() {
 
 /***/ }),
 
-/***/ "../../../../socket.io-client/node_modules/socket.io-parser/is-buffer.js":
+/***/ "../../../../socket.io-parser/is-buffer.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -12311,7 +12129,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return COMMON_PIPES; });
 
 /**
- * @license Angular v4.3.2
+ * @license Angular v4.3.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -16254,7 +16072,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -16523,7 +16341,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.2'
 /* unused harmony export removeSummaryDuplicates */
 
 /**
- * @license Angular v4.3.2
+ * @license Angular v4.3.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -16543,7 +16361,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.2'
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -23820,11 +23638,9 @@ var _TreeBuilder = (function () {
      * @return {?}
      */
     _TreeBuilder.prototype._closeVoidElement = function () {
-        if (this._elementStack.length > 0) {
-            var /** @type {?} */ el = this._elementStack[this._elementStack.length - 1];
-            if (this.getTagDefinition(el.name).isVoid) {
-                this._elementStack.pop();
-            }
+        var /** @type {?} */ el = this._getParentElement();
+        if (el && this.getTagDefinition(el.name).isVoid) {
+            this._elementStack.pop();
         }
     };
     /**
@@ -23868,11 +23684,9 @@ var _TreeBuilder = (function () {
      * @return {?}
      */
     _TreeBuilder.prototype._pushElement = function (el) {
-        if (this._elementStack.length > 0) {
-            var /** @type {?} */ parentEl = this._elementStack[this._elementStack.length - 1];
-            if (this.getTagDefinition(parentEl.name).isClosedByChild(el.name)) {
-                this._elementStack.pop();
-            }
+        var /** @type {?} */ parentEl = this._getParentElement();
+        if (parentEl && this.getTagDefinition(parentEl.name).isClosedByChild(el.name)) {
+            this._elementStack.pop();
         }
         var /** @type {?} */ tagDef = this.getTagDefinition(el.name);
         var _a = this._getParentElementSkippingContainers(), parent = _a.parent, container = _a.container;
@@ -23954,7 +23768,7 @@ var _TreeBuilder = (function () {
             }
             container = this._elementStack[i];
         }
-        return { parent: this._elementStack[this._elementStack.length - 1], container: container };
+        return { parent: null, container: container };
     };
     /**
      * @param {?} node
@@ -44375,7 +44189,7 @@ function _mergeArrays(parts) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵu", function() { return DebugContext; });
 
 /**
- * @license Angular v4.3.2
+ * @license Angular v4.3.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -45171,7 +44985,7 @@ var Version = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('4.3.2');
+var VERSION = new Version('4.3.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -59256,7 +59070,7 @@ function transition$$1(stateChangeExpr, steps) {
 /* unused harmony export ɵr */
 
 /**
- * @license Angular v4.3.2
+ * @license Angular v4.3.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -65105,7 +64919,7 @@ FormBuilder.ctorParameters = function () { return []; };
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -65319,7 +65133,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵd", function() { return jsonpFactory; });
 
 /**
- * @license Angular v4.3.2
+ * @license Angular v4.3.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -67474,7 +67288,7 @@ JsonpModule.ctorParameters = function () { return []; };
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -67520,7 +67334,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.2'
 /* unused harmony export ɵResourceLoaderImpl */
 
 /**
- * @license Angular v4.3.2
+ * @license Angular v4.3.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -67653,7 +67467,7 @@ var CachedResourceLoader = (function (_super) {
 /**
  * @stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.3.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.3.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -67741,7 +67555,7 @@ var platformBrowserDynamic = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__
 /* unused harmony export ɵe */
 
 /**
- * @license Angular v4.3.2
+ * @license Angular v4.3.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -72148,7 +71962,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.3.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.3.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -72279,7 +72093,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.3.2'
 /* unused harmony export ɵl */
 
 /**
- * @license Angular v4.3.2
+ * @license Angular v4.3.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -78529,7 +78343,7 @@ function provideRouterInitializer() {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.3.2');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.3.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
