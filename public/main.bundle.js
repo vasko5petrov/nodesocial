@@ -167,7 +167,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "#messages {\r\n\theight: 60vh;\r\n\toverflow-y: scroll;\r\n}", ""]);
 
 // exports
 
@@ -180,7 +180,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/chat/chat.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n\t<div class=\"col-md-6 col-md-offset-3\">\r\n\t\t<h2 class=\"page-header\">Public chat</h2>\r\n\t\t<div class=\"well\" style=\"height: 60vh; overflow-y: scroll;\">\r\n\t\t\t<div *ngFor=\"let message of allMessages\">\r\n\t\t\t\t<div class=\"panel panel-default\">\r\n\t\t\t\t  <div class=\"panel-body\">\r\n\t\t\t\t    <span class=\"badge\">{{message.user}}</span>\r\n\t\t\t\t\t{{message.chatMessage}}\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<small class=\"pull-right text-primary\">{{message.timestamp | date: 'dd/MM/yyyy H:m:s'}}</small>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t  </div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div *ngFor=\"let message of messages\">\r\n\t\t\t\t<div class=\"panel panel-default\">\r\n\t\t\t\t  <div class=\"panel-body\">\r\n\t\t\t\t    <span class=\"badge\">{{message.user}}</span>\r\n\t\t\t\t\t{{message.chatMessage}}\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<small class=\"pull-right text-primary\">{{message.timestamp | date: 'dd/MM/yyyy H:m:s'}}</small>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t  </div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"form-group\">\r\n\t\t  <label class=\"message\">Message</label>\r\n\t\t  <div class=\"input-group\">\r\n\t\t    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"message\" name=\"message\">\r\n\t\t    <span class=\"input-group-btn\">\r\n\t\t      <button class=\"btn btn-warning\" (click)=\"sendMessage()\">Send</button>\r\n\t\t    </span>\r\n\t\t  </div>\r\n\t\t</div>\r\n\t\t<!--<button class=\"btn btn-block btn-danger\" (click)=\"clearMessages()\">Clear Messages</button>-->\r\n\t</div>\r\n</div>"
+module.exports = "<div class=\"row\">\r\n\t<div class=\"col-md-6 col-md-offset-3\">\r\n\t\t<h2 class=\"page-header\">Public chat</h2>\r\n\t\t<div class=\"well\" id=\"messages\">\r\n\t\t\t<div *ngFor=\"let message of allMessages\">\r\n\t\t\t\t<div class=\"panel panel-default\">\r\n\t\t\t\t  <div class=\"panel-body\">\r\n\t\t\t\t    <span class=\"badge\">{{message.user}}</span>\r\n\t\t\t\t\t{{message.chatMessage}}\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<small class=\"pull-right text-primary\">{{message.timestamp | date: 'dd/MM/yyyy H:m:s'}}</small>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t  </div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div *ngFor=\"let message of messages\">\r\n\t\t\t\t<div class=\"panel panel-default\">\r\n\t\t\t\t  <div class=\"panel-body\">\r\n\t\t\t\t    <span class=\"badge\">{{message.user}}</span>\r\n\t\t\t\t\t{{message.chatMessage}}\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<small class=\"pull-right text-primary\">{{message.timestamp | date: 'dd/MM/yyyy H:m:s'}}</small>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t  </div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"form-group\">\r\n\t\t  <label class=\"message\">Message</label>\r\n\t\t  <div class=\"input-group\">\r\n\t\t    <input type=\"text\" class=\"form-control\" (keyup.enter)=\"sendMessage()\" [(ngModel)]=\"message\" name=\"message\">\r\n\t\t    <span class=\"input-group-btn\">\r\n\t\t      <button class=\"btn btn-warning\" (click)=\"sendMessage()\">Send</button>\r\n\t\t    </span>\r\n\t\t  </div>\r\n\t\t</div>\r\n\t\t<!--<button class=\"btn btn-block btn-danger\" (click)=\"clearMessages()\">Clear Messages</button>-->\r\n\t</div>\r\n</div>"
 
 /***/ }),
 
@@ -191,6 +191,10 @@ module.exports = "<div class=\"row\">\r\n\t<div class=\"col-md-6 col-md-offset-3
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_chat_service__ = __webpack_require__("../../../../../src/app/services/chat.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery__ = __webpack_require__("../../../../jquery/dist/jquery.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_jquery__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -204,19 +208,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var ChatComponent = (function () {
-    function ChatComponent(chatService, authService) {
+    function ChatComponent(chatService, authService, flashMessage) {
         this.chatService = chatService;
         this.authService = authService;
+        this.flashMessage = flashMessage;
         this.messages = [];
     }
     ChatComponent.prototype.sendMessage = function () {
-        this.messageData = {
-            message: this.message,
-            user: this.user.name
-        };
-        this.chatService.sendMessage(this.messageData);
-        this.message = '';
+        if (this.message) {
+            this.messageData = {
+                message: this.message,
+                user: this.user.name
+            };
+            this.chatService.sendMessage(this.messageData);
+            this.message = '';
+        }
+        else {
+            this.flashMessage.show('Please type a message!', { cssClass: 'alert-danger', timeout: 3000 });
+        }
     };
     ChatComponent.prototype.clearMessages = function () {
         this.chatService.clearMessages();
@@ -229,11 +241,20 @@ var ChatComponent = (function () {
             console.log(err);
             return false;
         });
+        __WEBPACK_IMPORTED_MODULE_4_jquery__(document).ready(function () {
+            __WEBPACK_IMPORTED_MODULE_4_jquery__('#messages').animate({ scrollTop: __WEBPACK_IMPORTED_MODULE_4_jquery__('#messages').get(0).scrollHeight }, 1000);
+        });
         this.chatService.showMessages().subscribe(function (data) {
             _this.allMessages = data;
+            __WEBPACK_IMPORTED_MODULE_4_jquery__(document).ready(function () {
+                __WEBPACK_IMPORTED_MODULE_4_jquery__('#messages').animate({ scrollTop: __WEBPACK_IMPORTED_MODULE_4_jquery__('#messages').get(0).scrollHeight }, 1000);
+            });
         });
         this.connection = this.chatService.getMessages().subscribe(function (message) {
             _this.messages.push(message);
+            __WEBPACK_IMPORTED_MODULE_4_jquery__(document).ready(function () {
+                __WEBPACK_IMPORTED_MODULE_4_jquery__('#messages').animate({ scrollTop: __WEBPACK_IMPORTED_MODULE_4_jquery__('#messages').get(0).scrollHeight }, 1000);
+            });
         });
     };
     ChatComponent.prototype.ngOnDestroy = function () {
@@ -246,10 +267,10 @@ ChatComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/chat/chat.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/chat/chat.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _c || Object])
 ], ChatComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=chat.component.js.map
 
 /***/ }),

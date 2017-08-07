@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<h2 class="page-header">Public chat</h2>
-		<div class="well" style="height: 60vh; overflow-y: scroll;">
+		<div class="well" id="messages">
 			<div *ngFor="let message of allMessages">
 				<div class="panel panel-default">
 				  <div class="panel-body">
@@ -28,7 +28,7 @@
 		<div class="form-group">
 		  <label class="message">Message</label>
 		  <div class="input-group">
-		    <input type="text" class="form-control" [(ngModel)]="message" name="message">
+		    <input type="text" class="form-control" (keyup.enter)="sendMessage()" [(ngModel)]="message" name="message">
 		    <span class="input-group-btn">
 		      <button class="btn btn-warning" (click)="sendMessage()">Send</button>
 		    </span>
