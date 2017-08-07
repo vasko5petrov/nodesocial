@@ -6,7 +6,7 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class ChatService {
-  private url = 'http://localhost:8080';
+  private url = 'https://whispering-caverns-43532.herokuapp.com/socket.io/?EIO=3&transport=polling&t=LsxnCZf';
   private socket;
   
   sendMessage(messageData){
