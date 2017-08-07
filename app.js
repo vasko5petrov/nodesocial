@@ -7,21 +7,21 @@ const path = require('path');
 
 const app = express();
 
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const socketIO = require('socket.io');
 const MongoClient  = require('mongodb').MongoClient;
 
 const config = require('./config/database');
 const user = require('./routes/users');
 
+	const PORT = process.env.PORT || 3000;
+
+	const server = app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+	const io = socketIO(server);
+
 MongoClient.connect(config.database, (err, database) => {
     if (err) return console.log(err)
     db = database
-	let appPort = process.env.PORT || 5000;
-	app.listen(appPort, (err) => {
-		if(err) throw err;
-		console.log('mongodb listenning on port '+appPort);
-	});
 
 	function databaseStore(messageData) {
 		let storeData = {chatMessage: messageData.message, user:messageData.user, timestamp: new Date().getTime()}
@@ -93,11 +93,4 @@ app.get('/', (req, res) => {
 
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public/index.html'));
-});
-
-const port = process.env.PORT || 8080;
-
-http.listen(port, (err) => {
-	if(err) throw err;
-	console.log('Server started on port '+port);
 });
