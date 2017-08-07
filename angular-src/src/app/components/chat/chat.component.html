@@ -2,8 +2,8 @@
 	<div class="col-md-6 col-md-offset-3">
 		<h2 class="page-header">Public chat</h2>
 		<div class="well" id="messages">
-			<div *ngFor="let message of allMessages">
-				<div class="panel panel-default">
+			<div *ngFor="let message of allMessages" class="clearfix">
+				<div class="panel panel-default" [ngClass]="[message.user != user.name ? 'panel-primary chat-left-message' : 'panel-default chat-right-message']">
 				  <div class="panel-body">
 				    <span class="badge">{{message.user}}</span>
 					{{message.chatMessage}}
@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div *ngFor="let message of messages">
-				<div class="panel panel-default">
+				<div class="panel panel-default" [ngClass]="[message.user != user.name ? 'panel-primary chat-left-message' : 'panel-default chat-right-message']">
 				  <div class="panel-body">
 				    <span class="badge">{{message.user}}</span>
 					{{message.chatMessage}}
