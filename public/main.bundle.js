@@ -881,7 +881,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var ChatService = (function () {
     function ChatService() {
-        this.url = 'https://whispering-caverns-43532.herokuapp.com/socket.io/?EIO=3&transport=polling&t=LsxnCZf';
+        this.url = 'socket.io/?EIO=3&transport=polling&t=LsxnCZf';
     }
     ChatService.prototype.sendMessage = function (messageData) {
         this.socket.emit('add-message', messageData);
