@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-navbar></app-navbar>\n<div class=\"container\">\n\t<flash-messages></flash-messages>\n\t<router-outlet></router-outlet>\n</div>"
+module.exports = "<app-navbar></app-navbar>\r\n<div class=\"container\">\r\n\t<flash-messages></flash-messages>\r\n\t<router-outlet></router-outlet>\r\n</div>"
 
 /***/ }),
 
@@ -180,7 +180,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/chat/chat.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n\t<div class=\"col-md-6 col-md-offset-3\">\n\t\t<h2 class=\"page-header\">Public chat</h2>\n\t\t<div class=\"well\" style=\"height: 60vh; overflow-y: scroll;\">\n\t\t\t<div *ngFor=\"let message of allMessages\">\n\t\t\t\t<div class=\"panel panel-default\">\n\t\t\t\t  <div class=\"panel-body\">\n\t\t\t\t    <span class=\"badge\">{{message.user}}</span>\n\t\t\t\t\t{{message.chatMessage}}\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<small class=\"pull-right text-primary\">{{message.timestamp | date: 'dd/MM/yyyy H:m:s'}}</small>\n\t\t\t\t\t</div>\n\t\t\t\t  </div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div *ngFor=\"let message of messages\">\n\t\t\t\t<div class=\"panel panel-default\">\n\t\t\t\t  <div class=\"panel-body\">\n\t\t\t\t    <span class=\"badge\">{{message.user}}</span>\n\t\t\t\t\t{{message.chatMessage}}\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<small class=\"pull-right text-primary\">{{message.timestamp | date: 'dd/MM/yyyy H:m:s'}}</small>\n\t\t\t\t\t</div>\n\t\t\t\t  </div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"form-group\">\n\t\t  <label class=\"message\">Message</label>\n\t\t  <div class=\"input-group\">\n\t\t    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"message\" name=\"message\">\n\t\t    <span class=\"input-group-btn\">\n\t\t      <button class=\"btn btn-warning\" (click)=\"sendMessage()\">Send</button>\n\t\t    </span>\n\t\t  </div>\n\t\t</div>\n\t\t<!--<button class=\"btn btn-block btn-danger\" (click)=\"clearMessages()\">Clear Messages</button>-->\n\t</div>\n</div>"
+module.exports = "<div class=\"row\">\r\n\t<div class=\"col-md-6 col-md-offset-3\">\r\n\t\t<h2 class=\"page-header\">Public chat</h2>\r\n\t\t<div class=\"well\" style=\"height: 60vh; overflow-y: scroll;\">\r\n\t\t\t<div *ngFor=\"let message of allMessages\">\r\n\t\t\t\t<div class=\"panel panel-default\">\r\n\t\t\t\t  <div class=\"panel-body\">\r\n\t\t\t\t    <span class=\"badge\">{{message.user}}</span>\r\n\t\t\t\t\t{{message.chatMessage}}\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<small class=\"pull-right text-primary\">{{message.timestamp | date: 'dd/MM/yyyy H:m:s'}}</small>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t  </div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div *ngFor=\"let message of messages\">\r\n\t\t\t\t<div class=\"panel panel-default\">\r\n\t\t\t\t  <div class=\"panel-body\">\r\n\t\t\t\t    <span class=\"badge\">{{message.user}}</span>\r\n\t\t\t\t\t{{message.chatMessage}}\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<small class=\"pull-right text-primary\">{{message.timestamp | date: 'dd/MM/yyyy H:m:s'}}</small>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t  </div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"form-group\">\r\n\t\t  <label class=\"message\">Message</label>\r\n\t\t  <div class=\"input-group\">\r\n\t\t    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"message\" name=\"message\">\r\n\t\t    <span class=\"input-group-btn\">\r\n\t\t      <button class=\"btn btn-warning\" (click)=\"sendMessage()\">Send</button>\r\n\t\t    </span>\r\n\t\t  </div>\r\n\t\t</div>\r\n\t\t<!--<button class=\"btn btn-block btn-danger\" (click)=\"clearMessages()\">Clear Messages</button>-->\r\n\t</div>\r\n</div>"
 
 /***/ }),
 
@@ -275,7 +275,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Dashboard</h2>\n<p>Welcome to your dashboard</p>"
+module.exports = "<h2 class=\"page-header\">Dashboard</h2>\r\n<p>Welcome to your dashboard</p>"
 
 /***/ }),
 
@@ -336,7 +336,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron text-center\">\n\t<h1>NodeSocial App</h1>\n\t<p>Welcome to our custom MEAN Stack application build from scratch.</p>\n\t<div>\n\t\t<a [routerLink]=\"['/login']\" class=\"btn btn-primary\">Login</a> <a [routerLink]=\"['/register']\" class=\"btn btn-default\">Register</a>\n\t</div>\n</div>\n\n<div class=\"row\">\n\t<div class=\"col-md-4\">\n\t\t<h3>Express Backend</h3>\n\t\t<p>A rock solid Node.js/Express server using Mongoose to organize models and query the databse</p>\n\t</div>\n\t<div class=\"col-md-4\">\n\t\t<h3>Angular-CLI</h3>\n\t\t<p>Angular-CLI to generate components, services and more. Local dev server and easy compilation</p>\n\t</div>\n\t<div class=\"col-md-4\">\n\t\t<h3>JWT Tokens</h3>\n\t\t<p>Full featured authentication using JSON web tokens. Login and store user data</p>\n\t</div>\n</div>"
+module.exports = "<div class=\"jumbotron text-center\">\r\n\t<h1>NodeSocial App</h1>\r\n\t<p>Welcome to our custom MEAN Stack application build from scratch.</p>\r\n\t<div>\r\n\t\t<a [routerLink]=\"['/login']\" class=\"btn btn-primary\">Login</a> <a [routerLink]=\"['/register']\" class=\"btn btn-default\">Register</a>\r\n\t</div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n\t<div class=\"col-md-4\">\r\n\t\t<h3>Express Backend</h3>\r\n\t\t<p>A rock solid Node.js/Express server using Mongoose to organize models and query the databse</p>\r\n\t</div>\r\n\t<div class=\"col-md-4\">\r\n\t\t<h3>Angular-CLI</h3>\r\n\t\t<p>Angular-CLI to generate components, services and more. Local dev server and easy compilation</p>\r\n\t</div>\r\n\t<div class=\"col-md-4\">\r\n\t\t<h3>JWT Tokens</h3>\r\n\t\t<p>Full featured authentication using JSON web tokens. Login and store user data</p>\r\n\t</div>\r\n</div>"
 
 /***/ }),
 
@@ -397,7 +397,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n\t<div class=\"col-md-6 col-md-offset-3\">\n\t\t<h2 class=\"page-header\">Login</h2>\n\t\t<form (submit)=\"onLoginSubmit()\">\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label for=\"username\">Username</label>\n\t\t\t\t<input type=\"text\" [(ngModel)]=\"username\" name=\"username\" id=\"username\" class=\"form-control\">\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label for=\"password\">Password</label>\n\t\t\t\t<input type=\"password\" [(ngModel)]=\"password\" name=\"password\" id=\"password\" class=\"form-control\">\n\t\t\t</div>\n\t\t\t<input type=\"submit\" value=\"Login\" class=\"btn btn-success btn-block\">\n\t\t</form>\n\t</div>\n</div>"
+module.exports = "<div class=\"row\">\r\n\t<div class=\"col-md-6 col-md-offset-3\">\r\n\t\t<h2 class=\"page-header\">Login</h2>\r\n\t\t<form (submit)=\"onLoginSubmit()\">\r\n\t\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"username\">Username</label>\r\n\t\t\t\t<input type=\"text\" [(ngModel)]=\"username\" name=\"username\" id=\"username\" class=\"form-control\">\r\n\t\t\t</div>\r\n\t\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"password\">Password</label>\r\n\t\t\t\t<input type=\"password\" [(ngModel)]=\"password\" name=\"password\" id=\"password\" class=\"form-control\">\r\n\t\t\t</div>\r\n\t\t\t<input type=\"submit\" value=\"Login\" class=\"btn btn-success btn-block\">\r\n\t\t</form>\r\n\t</div>\r\n</div>"
 
 /***/ }),
 
@@ -494,7 +494,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "    <nav class=\"navbar navbar-inverse\">\n      <div class=\"container\">\n        <div class=\"navbar-header\">\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n            <span class=\"sr-only\">Toggle navigation</span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n          </button>\n          <a class=\"navbar-brand\" [routerLink]=\"['/']\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">NodeSocial</a>\n        </div>\n        <div id=\"navbar\" class=\"collapse navbar-collapse\">\n          <ul class=\"nav navbar-nav navbar-left\">\n            <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/chat']\">Chat</a></li>\n          </ul>\n          <ul class=\"nav navbar-nav navbar-right\">\n            <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/dashboard']\">Dashboard</a></li>\n            <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/profile']\">Profile</a></li>\n\n            <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/login']\">Login</a></li>\n            <li *ngIf=\"!authService.loggedIn()\"[routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/register']\">Register</a></li>\n            <li *ngIf=\"authService.loggedIn()\"><a href=\"#\" (click)=\"onLogoutClick()\">Logout</a></li>\n          </ul>\n        </div><!--/.nav-collapse -->\n      </div>\n    </nav>"
+module.exports = "    <nav class=\"navbar navbar-inverse\">\r\n      <div class=\"container\">\r\n        <div class=\"navbar-header\">\r\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\r\n            <span class=\"sr-only\">Toggle navigation</span>\r\n            <span class=\"icon-bar\"></span>\r\n            <span class=\"icon-bar\"></span>\r\n            <span class=\"icon-bar\"></span>\r\n          </button>\r\n          <a class=\"navbar-brand\" [routerLink]=\"['/']\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">NodeSocial</a>\r\n        </div>\r\n        <div id=\"navbar\" class=\"collapse navbar-collapse\">\r\n          <ul class=\"nav navbar-nav navbar-left\">\r\n            <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/chat']\">Chat</a></li>\r\n          </ul>\r\n          <ul class=\"nav navbar-nav navbar-right\">\r\n            <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/dashboard']\">Dashboard</a></li>\r\n            <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/profile']\">Profile</a></li>\r\n\r\n            <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/login']\">Login</a></li>\r\n            <li *ngIf=\"!authService.loggedIn()\"[routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/register']\">Register</a></li>\r\n            <li *ngIf=\"authService.loggedIn()\"><a href=\"#\" (click)=\"onLogoutClick()\">Logout</a></li>\r\n          </ul>\r\n        </div><!--/.nav-collapse -->\r\n      </div>\r\n    </nav>"
 
 /***/ }),
 
@@ -572,7 +572,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user\">\n\t<h2 class=\"page-header\">{{user.name}}</h2>\n\t<ul class=\"list-group\">\n\t\t<li class=\"list-group-item\"><strong class=\"text-warning\">Username: </strong>{{user.username}}</li>\n\t\t<li class=\"list-group-item\"><strong class=\"text-warning\">Email: </strong>{{user.email}}</li>\n\t</ul>\n</div>"
+module.exports = "<div *ngIf=\"user\">\r\n\t<h2 class=\"page-header\">{{user.name}}</h2>\r\n\t<ul class=\"list-group\">\r\n\t\t<li class=\"list-group-item\"><strong class=\"text-warning\">Username: </strong>{{user.username}}</li>\r\n\t\t<li class=\"list-group-item\"><strong class=\"text-warning\">Email: </strong>{{user.email}}</li>\r\n\t</ul>\r\n</div>"
 
 /***/ }),
 
@@ -647,7 +647,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n\t<div class=\"col-md-6 col-md-offset-3\">\n\t\t<h2 class=\"page-header\">Register</h2>\n\t\t<form (submit)=\"onRegisterSubmit()\">\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label for=\"name\">Name</label>\n\t\t\t\t<input type=\"text\" [(ngModel)]=\"name\" name=\"name\"id=\"name\" class=\"form-control\">\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label for=\"email\">Email</label>\n\t\t\t\t<input type=\"email\" [(ngModel)]=\"email\" name=\"email\"id=\"email\" class=\"form-control\">\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label for=\"username\">Username</label>\n\t\t\t\t<input type=\"text\" [(ngModel)]=\"username\" name=\"username\" id=\"username\" class=\"form-control\">\n\t\t\t</div>\n\t\t\t<div class=\"form-group\">\n\t\t\t\t<label for=\"password\">Password</label>\n\t\t\t\t<input type=\"password\" [(ngModel)]=\"password\" name=\"password\" id=\"password\" class=\"form-control\">\n\t\t\t</div>\n\t\t\t<input type=\"submit\" value=\"Register\" class=\"btn btn-success btn-block\">\n\t\t</form>\n\t</div>\n</div>"
+module.exports = "<div class=\"row\">\r\n\t<div class=\"col-md-6 col-md-offset-3\">\r\n\t\t<h2 class=\"page-header\">Register</h2>\r\n\t\t<form (submit)=\"onRegisterSubmit()\">\r\n\t\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"name\">Name</label>\r\n\t\t\t\t<input type=\"text\" [(ngModel)]=\"name\" name=\"name\"id=\"name\" class=\"form-control\">\r\n\t\t\t</div>\r\n\t\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"email\">Email</label>\r\n\t\t\t\t<input type=\"email\" [(ngModel)]=\"email\" name=\"email\"id=\"email\" class=\"form-control\">\r\n\t\t\t</div>\r\n\t\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"username\">Username</label>\r\n\t\t\t\t<input type=\"text\" [(ngModel)]=\"username\" name=\"username\" id=\"username\" class=\"form-control\">\r\n\t\t\t</div>\r\n\t\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"password\">Password</label>\r\n\t\t\t\t<input type=\"password\" [(ngModel)]=\"password\" name=\"password\" id=\"password\" class=\"form-control\">\r\n\t\t\t</div>\r\n\t\t\t<input type=\"submit\" value=\"Register\" class=\"btn btn-success btn-block\">\r\n\t\t</form>\r\n\t</div>\r\n</div>"
 
 /***/ }),
 
@@ -881,7 +881,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var ChatService = (function () {
     function ChatService() {
-        this.url = 'http://localhost:8080';
+        this.url = 'https://whispering-caverns-43532.herokuapp.com/socket.io/?EIO=3&transport=polling&t=LsxnCZf';
     }
     ChatService.prototype.sendMessage = function (messageData) {
         this.socket.emit('add-message', messageData);
