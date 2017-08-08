@@ -3,7 +3,20 @@
 		<h2 class="page-header">Public chat</h2>
 		<div class="well" id="messages">
 			<div *ngFor="let message of allMessages" class="clearfix">
-				<div class="panel panel-default" [ngClass]="[message.user != user.name ? 'panel-primary chat-left-message' : 'panel-default chat-right-message']">
+				<div [ngClass]="[message.user != user.name ? 'pull-left' : 'pull-right']" style="margin-bottom: 10px;">
+					<div *ngIf="message.user != user.name">
+						 <small><i class="fa fa-circle other-circle"></i> </small><span class="message-data-name" >{{message.user}}</span> &nbsp; &nbsp;
+						<small class="text-muted">{{message.timestamp | date: 'H:mm a, dd/MM/yyyy'}}</small>
+					</div>
+					<div *ngIf="message.user == user.name">
+						<small class="text-muted">{{message.timestamp | date: 'H:mm a, dd/MM/yyyy'}}</small> &nbsp; &nbsp;
+						<span class="message-data-name" >{{message.user}}</span> <small><i class="fa fa-circle my-circle"></i></small>
+					</div>
+	            </div>
+	            <div class="message" [ngClass]="[message.user != user.name ? 'pull-left other-message' : 'pull-right my-message']">
+					{{message.chatMessage}}
+	            </div>
+				<!--<div class="panel panel-default" [ngClass]="[message.user != user.name ? 'panel-primary chat-left-message' : 'panel-default chat-right-message']">
 				  <div class="panel-body">
 				    <span class="badge">{{message.user}}</span>
 					{{message.chatMessage}}
@@ -11,10 +24,23 @@
 						<small class="pull-right text-primary">{{message.timestamp | date: 'dd/MM/yyyy H:m:s'}}</small>
 					</div>
 				  </div>
-				</div>
+				</div>-->
 			</div>
 			<div *ngFor="let message of messages">
-				<div class="panel panel-default" [ngClass]="[message.user != user.name ? 'panel-primary chat-left-message' : 'panel-default chat-right-message']">
+				<div [ngClass]="[message.user != user.name ? 'pull-left' : 'pull-right']" style="margin-bottom: 10px;">
+					<div *ngIf="message.user != user.name">
+						<small><i class="fa fa-circle other-circle"></i> </small><span class="message-data-name" >{{message.user}}</span> &nbsp; &nbsp;
+						<small class="text-muted">{{message.timestamp | date: 'H:mm a, dd/MM/yyyy'}}</small>
+					</div>
+					<div *ngIf="message.user == user.name">
+						<small class="text-muted">{{message.timestamp | date: 'H:mm a, dd/MM/yyyy'}}</small> &nbsp; &nbsp;
+						<span class="message-data-name" >{{message.user}}</span> <small><i class="fa fa-circle my-circle"></i></small>
+					</div>
+	            </div>
+	            <div class="message" [ngClass]="[message.user != user.name ? 'pull-left other-message' : 'pull-right my-message']">
+					{{message.chatMessage}}
+	            </div>
+				<!--<div class="panel panel-default" [ngClass]="[message.user != user.name ? 'panel-primary chat-left-message' : 'panel-default chat-right-message']">
 				  <div class="panel-body">
 				    <span class="badge">{{message.user}}</span>
 					{{message.chatMessage}}
@@ -22,15 +48,15 @@
 						<small class="pull-right text-primary">{{message.timestamp | date: 'dd/MM/yyyy H:m:s'}}</small>
 					</div>
 				  </div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 		<div class="form-group">
-		  <label class="message">Message</label>
+		  <label for="message">Message</label>
 		  <div class="input-group">
 		    <input type="text" class="form-control" (keyup.enter)="sendMessage()" [(ngModel)]="message" name="message">
 		    <span class="input-group-btn">
-		      <button class="btn btn-warning" (click)="sendMessage()">Send</button>
+		      <button class="btn btn-warning" (click)="sendMessage()"><i class="fa fa-send"></i> Send</button>
 		    </span>
 		  </div>
 		</div>

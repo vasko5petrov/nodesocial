@@ -1,6 +1,6 @@
 #messages {
 	height: 60vh;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 .chat-left-message {
 	width: 80%;
@@ -9,4 +9,47 @@
 .chat-right-message {
 	width: 80%;
 	float: right;
+}
+
+.message {      
+    color: white;
+    padding: 18px 20px;
+    line-height: 26px;
+    font-size: 16px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    width: 90%;
+    position: relative;      
+}
+.message:after {
+    bottom: 100%;
+    left: 7%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #86BB71;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+
+.my-message {
+	background-color: #94C2ED;
+}
+.my-circle {
+	color: #94C2ED;
+}
+.my-message:after {
+    border-bottom-color: #94C2ED;
+    left: 93%;
+}
+
+.other-message {
+	background-color: #86BB71;
+}
+.other-circle {
+	color: #86BB71;
 }
