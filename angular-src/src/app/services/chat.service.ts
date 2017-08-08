@@ -6,26 +6,26 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class ChatService {
-  private url = 'https://whispering-caverns-43532.herokuapp.com';
+  private url = 'https://nodesocial-chat.herokuapp.com';
   private socket;
-  
+
   sendMessage(messageData){
-    this.socket.emit('add-message', messageData);    
+    this.socket.emit('add-message', messageData);
   }
 
   clearMessages() {
     this.socket.emit('clear');
   }
-  
+
   showMessages() {
     let observable = new Observable(observer => {
       this.socket = io(this.url);
       this.socket.on('output', (data) => {
-        observer.next(data);    
+        observer.next(data);
       });
       return () => {
         this.socket.disconnect();
-      };  
+      };
     })
     return observable;
   }
@@ -33,12 +33,12 @@ export class ChatService {
   getMessages() {
     let observable = new Observable(observer => {
       this.socket.on('message', (data) => {
-        observer.next(data);    
+        observer.next(data);
       });
       return () => {
         this.socket.disconnect();
-      };  
-    })     
+      };
+    })
     return observable;
-  }  
+  }
 }
